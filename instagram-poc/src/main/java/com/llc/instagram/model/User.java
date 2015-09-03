@@ -2,9 +2,9 @@ package com.llc.instagram.model;
 
 public class User {
 	private String id;
-	private String userName;
-	private String fullName;
-	private String profilePicture;
+	private String user_name;
+	private String full_name;
+	private String profile_picture;
 	public String getId() {
 		return id;
 	}
@@ -12,21 +12,21 @@ public class User {
 		this.id = id;
 	}
 	public String getUserName() {
-		return userName;
+		return user_name;
 	}
 	public void setUserName(String userName) {
-		this.userName = userName;
+		this.user_name = userName;
 	}
 	public String getFullName() {
-		return fullName;
+		return full_name;
 	}
 	public void setFullName(String fullName) {
-		this.fullName = fullName;
+		this.full_name = fullName;
 	}
 	public String getProfilePicture() {
-		return profilePicture;
+		return profile_picture;
 	}
 	public void setProfilePicture(String profilePicture) {
-		this.profilePicture = profilePicture;
+		this.profile_picture = profilePicture;
 	}
 }

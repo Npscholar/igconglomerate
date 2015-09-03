@@ -2,7 +2,7 @@ package com.llc.instagram.model;
 
 public class AccessTokenResponse {
 	private User user;
-	private String accessToken;
+	private String access_token;
 	
 	public User getUser() {
 		return user;
@@ -12,11 +12,11 @@ public class AccessTokenResponse {
 	}
 
 	public String getAccessToken() {
-		return accessToken;
+		return access_token;
 	}
 
 	public void setAccessToken(String accessToken) {
-		this.accessToken = accessToken;
+		this.access_token = accessToken;
 	}
 	
 }
