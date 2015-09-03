@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
@@ -80,12 +81,19 @@ public class HomeController {
 		urlParameters.add(new BasicNameValuePair("client_id", clientId));
 		urlParameters.add(new BasicNameValuePair("client_secret", clientSecret));
 		urlParameters.add(new BasicNameValuePair("grant_type", "authorization_code"));
-		urlParameters.add(new BasicNameValuePair("redirect_uri", redirectURL));
+		urlParameters.add(new BasicNameValuePair("redirect_uri", redirectURL1));
 		urlParameters.add(new BasicNameValuePair("code", code));
 		try {
 			post.setEntity(new UrlEncodedFormEntity(urlParameters));
+			HttpEntity entity = post.getEntity();
+			BufferedReader reader = new BufferedReader(new InputStreamReader(entity.getContent()));
+			String line1 ="";
+			while((line1 = reader.readLine()) != null){
+				LOGGER.error(line1);
+			}
 			LOGGER.error(post.toString());
 			HttpResponse response = client.execute(post);
+			LOGGER.error(post.getEntity().toString());
 			LOGGER.error("Response Code : " + response.getStatusLine().getStatusCode());
 			if (response.getStatusLine().getStatusCode() == 400){
 				return "redirect:"+failure;
