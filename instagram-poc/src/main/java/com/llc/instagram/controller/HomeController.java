@@ -39,7 +39,7 @@ public class HomeController {
 	final String redirectURL = "http://localhost:8080/instagram-poc/access";
 	final String redirectURL1 = "http://ec2-52-1-233-246.compute-1.amazonaws.com:8080/instagram-poc/access";
 	final String authURLImplicit = "https://api.instagram.com/oauth/authorize/?client_id="+clientId+"&redirect_uri="+redirectURL+"&response_type=token";
-	final String authURLExplicit ="https://api.instagram.com/oauth/authorize/?client_id="+clientId+"&redirect_uri="+redirectURL+"&response_type=code";
+	final String authURLExplicit ="https://api.instagram.com/oauth/authorize/?client_id="+clientId+"&redirect_uri="+redirectURL1+"&response_type=code";
 	final String implicitAccessToken = "2158323180.538d799.e1fc4cc862384af0800f6df35e39047f";
 	private AccessTokenResponse token;
 	
