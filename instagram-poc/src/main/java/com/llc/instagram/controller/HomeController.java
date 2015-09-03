@@ -37,10 +37,11 @@ public class HomeController {
 	final String clientId = "538d7997094b4ed59b78ca64ad637eb4";
 	final String clientSecret = "722c968f724f46d099016797d3cfa18b";
 	final String redirectURL = "http://localhost:8080/instagram-poc/access";
-	final String redirectURL1 = "http://ec2-52-1-233-246.compute-1.amazonaws.com:8080/instagram-poc/access";
+	final String redirectURL1 = "http://52.1.233.246:8080/instagram-poc/access";
 	final String authURLImplicit = "https://api.instagram.com/oauth/authorize/?client_id="+clientId+"&redirect_uri="+redirectURL+"&response_type=token";
 	final String authURLExplicit ="https://api.instagram.com/oauth/authorize/?client_id="+clientId+"&redirect_uri="+redirectURL1+"&response_type=code";
 	final String implicitAccessToken = "2158323180.538d799.e1fc4cc862384af0800f6df35e39047f";
+	final String failure = "https://queencitybeerleague.files.wordpress.com/2015/04/goteem.png?w=640&h=478";
 	private AccessTokenResponse token;
 	
 	@RequestMapping(value="/")
@@ -63,12 +64,14 @@ public class HomeController {
 			return errorReason + "\nUser Athentication failed because:" + errorDescription;
 		}else{
 			LOGGER.error("about to redirect to accesscode");
+			LOGGER.error(code);
 			return "redirect:/accesscode?code="+code; 
 		}
 	}
 	@RequestMapping(value="/accesscode")
 	public String postAccessCode(HttpServletResponse resp, @RequestParam("code") String code) throws UnsupportedOperationException, IOException{
 		LOGGER.error("got into /postaccessCode");
+		LOGGER.error(code);
 		String url = "https://api.instagram.com/oauth/access_token";
 		HttpClient client = HttpClientBuilder.create().build();
 		HttpPost post = new HttpPost(url);
@@ -81,10 +84,11 @@ public class HomeController {
 		urlParameters.add(new BasicNameValuePair("code", code));
 		try {
 			post.setEntity(new UrlEncodedFormEntity(urlParameters));
+			LOGGER.error(post.toString());
 			HttpResponse response = client.execute(post);
-			System.out.println("Response Code : " + response.getStatusLine().getStatusCode());
-			if(response.getStatusLine().getStatusCode() == 400){
-				return "I told you not to press the nback button" + response.getStatusLine().getReasonPhrase();
+			LOGGER.error("Response Code : " + response.getStatusLine().getStatusCode());
+			if (response.getStatusLine().getStatusCode() == 400){
+				return "redirect:"+failure;
 			}
 			BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
 			StringBuffer result = new StringBuffer();
@@ -98,6 +102,9 @@ public class HomeController {
 			return "redirect:"+token.getUser().getProfilePicture();
 		} catch (UnsupportedEncodingException e) {
 			return	"HomeController line 89";
+		}
+		catch(NullPointerException e){
+			return "WTF did you do?!";
 		}
 		
 	}
