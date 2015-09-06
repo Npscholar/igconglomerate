@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 @Generated("org.jsonschema2pojo")
-public class User {
+public class From {
 
     @Expose
     private String username;
